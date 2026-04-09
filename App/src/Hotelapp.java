@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
+// -------------------- ABSTRACT CLASS --------------------
 abstract class Room {
     protected int numberOfBeds;
     protected int squareFeet;
@@ -20,6 +20,7 @@ abstract class Room {
     }
 }
 
+// -------------------- ROOM TYPES --------------------
 class SingleRoom extends Room {
     public SingleRoom() {
         super(1, 250, 1500.0);
@@ -38,41 +39,45 @@ class SuiteRoom extends Room {
     }
 }
 
-
+// -------------------- ROOM INVENTORY --------------------
 class RoomInventory {
 
-
+    // HashMap to store availability
     private Map<String, Integer> roomAvailability;
 
+    // Constructor
     public RoomInventory() {
         roomAvailability = new HashMap<>();
         initializeInventory();
     }
 
+    // Initialize default values
     private void initializeInventory() {
         roomAvailability.put("Single", 5);
         roomAvailability.put("Double", 3);
         roomAvailability.put("Suite", 2);
     }
 
+    // Get availability
     public Map<String, Integer> getRoomAvailability() {
         return roomAvailability;
     }
 
+    // Update availability
     public void updateAvailability(String roomType, int count) {
         roomAvailability.put(roomType, count);
     }
 }
 
-
+// -------------------- MAIN CLASS --------------------
 public class Hotelapp {
 
     public static void main(String[] args) {
 
-
+        // Create inventory (centralized)
         RoomInventory inventory = new RoomInventory();
 
-
+        // Create room objects
         Room single = new SingleRoom();
         Room doubleRoom = new DoubleRoom();
         Room suite = new SuiteRoom();
@@ -91,7 +96,7 @@ public class Hotelapp {
         suite.displayRoomDetails();
         System.out.println("Available: " + inventory.getRoomAvailability().get("Suite"));
 
-
+        // Example update
         System.out.println("\nUpdating availability...");
         inventory.updateAvailability("Single", 4);
 
